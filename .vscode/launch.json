@@ -15,7 +15,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open MainPage.html",
-            "file": "h:\\HoundaCivic_Website\\MainPage.html"
+            "file": "h:\\HoundaCivic_Website\\TestingPage.html"
         }
     ]
 }

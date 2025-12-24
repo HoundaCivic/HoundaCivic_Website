@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+div {
+    padding: 20px;
+    background-color: lightblue;
+    animation-name: Wel_initial;
+    animation-duration: 2s;
+}
+@keyframes Wel_initial {
+0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd; // Whole code block from w3 Schools,
+   jumping off point for portfolio
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+</head>
+<body>
+<div>
+    <h1 style="font-size:40"> Welcome To My Portfolio</h1>
+</div>
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="Basic_Game.html">Cookie Clicker Clone</a>
+  <a href="MainPage.html">Who Am I?</a>
+  <a href="#about">Test Button</a>
+</div>
+
+<div style="padding-left:16px">
+  <h2>Current Project: FieldCraft</h2>
+  <p><li><a href="https://github.com/HoundaCivic/FieldCraft">FieldCraft Repository</a> </li></p>
+   <p> Fieldcraft is a mobile knowledge hub for airsoft enthusiasts. 
+    It was created to provide a centralized platform for airsoft players to access information, share experiences, and connect with others in the community.</p>
+</div>
+
+</body>
+</html>

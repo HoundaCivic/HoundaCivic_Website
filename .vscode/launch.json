@@ -14,7 +14,7 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Open MainPage.html",
+            "name": "Open TestPage.html",
             "file": "h:\\HoundaCivic_Website\\TestingPage.html"
         }
     ]

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Intro — Airplane Busywork</title>
+  <link rel="stylesheet" href="Styles/style.css">
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let count = 0;
+      const btn = document.getElementById("countBtn");
+      const output = document.getElementById("count");
+      if (btn && output) {
+        btn.addEventListener("click", () => {
+          count++;
+          output.textContent = count;
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header class="enter">
+      <h1>Hello world</h1>
+    </header>
+
+    <section class="card">
+      <p>This is an HTML mobile test.</p>
+      <ul>
+        <li>The purpose of this is to keep me busy during a flight.</li>
+        <li><a href="https://github.com/HoundaCivic" target="_blank" rel="noopener">GitHub link</a></li>
+      </ul>
+      <h2>Text size issues</h2>
+      <p class="large">This paragraph uses a larger, responsive font size instead of inline fixed sizing.</p>
+      <h3>Spaced text attempt</h3>
+      <p>Experimenting with JavaScript below.</p>
+      <button class="btn" id="countBtn">Click me</button>
+      <p class="muted">Count: <span id="count">0</span></p>
+    </section>
+
+    <section class="card">
+      <img src="IMG/me.jpg" alt="Example image" style="max-width:220px;border-radius:8px;display:block;margin-bottom:12px">
+      <p>This is Paul. Paul is a pancake shark. Paul enjoys long swims on the beach and eating pancakes.</p>
+      <p>Pancake sharks are an endangered species. Please help save pancake sharks by donating to your local pancake shark foundation.</p>
+    </section>
+  </div>
+</body>
+</html>

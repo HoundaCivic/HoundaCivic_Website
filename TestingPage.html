@@ -1,82 +1,78 @@
 <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-div {
-    padding: 20px;
-    background-color: lightblue;
-    animation-name: Wel_initial;
-    animation-duration: 2s;
-}
-@keyframes Wel_initial {
-0% {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testing Page</title>
+  <link rel="stylesheet" href="Styles/style.css">
 </head>
 <body>
-<div>
-    <h1 style="font-size:40"> Welcome To My Portfolio</h1>
-</div>
-<div class="topnav">
-  <a class="active" href="#home">Home</a>
+  <div class="container">
+    <!-- Decorative pancake shark (fades/slides in from right) -->
+    <img class="pancake-shark" src="Pancake_Shark.jpeg" alt="Pancake Shark" aria-hidden="true">
+    <header class="enter">
+      <h1 style="color: black">Welcome to my portfolio!</h1>
+      <nav class="topnav" aria-label="Main navigation">
+        <a class="active" href="#home">Home</a>
   <a href="Basic_Game.html">Cookie Clicker Clone</a>
-  <a href="MainPage.html">Who Am I?</a>
-  <a href="#about">Test Button</a>
-</div>
+  <a href="Who_Am_I.html">Who Am I?</a>
+        <a href="#test">Test Button</a>
+      </nav>
+    </header>
 
-<div style="padding-left:16px">
-  <h2>Current Project: FieldCraft</h2>
-  <p><a href="https://github.com/HoundaCivic/FieldCraft">FieldCraft Repository</a></p>
-   <p> Fieldcraft is a mobile knowledge hub for airsoft enthusiasts. 
-    It was created to provide a centralized platform for airsoft players to access information, share experiences, and connect with others in the community.</p>
-</div>
-<div style="padding-down: 5px">
-  <h2> Previous Projects</h2>
-  <p><a href="https://github.com/HoundaCivic/pong">Pong Repository</a></p>
-  <p> Pong is a classic arcade game, this is my first attempt at game development and was made in the GoDot engine.
-    This project showcases my ability to create interactive games and work with game development libraries.</p>
-  </p>
-</div>
-<div style="padding-down: 5px">
-  <p><a href="https://github.com/Legion-Studios/LegionCore-Public">Public Legion Studios Mod Repository</a></p>
-  <p> Legion Studios is a modding community for the game Legion. This project showcases my ability to work with modding communities and contribute to open-source projects.</p>
-  </p>
-</div>
+    <section class="card">
+      <h2>Current Project</h2>
+      <p><a href="https://github.com/HoundaCivic/FieldCraft" target="_blank" rel="noopener">FieldCraft Repository</a></p>
+      <p>Fieldcraft is a mobile knowledge hub for airsoft enthusiasts.
+         It provides a centralized platform for players to access information,
+          share experiences and connect with others. It was built with Kotlin on the
+        Android platform. with future progress leaning towards deployment across IOS and Android.</p>
+    </section>
+
+    <section class="card">
+      <h2>Previous Projects</h2>
+      <ul>
+        <li><a href="https://github.com/HoundaCivic/pong" target="_blank">Pong Repository</a></li>
+        <li><a href="https://github.com/Legion-Studios/LegionCore-Public" target="_blank">Public Legion Studios Mod Repository</a></li>
+      </ul>
+      <p>These projects showcase interactive games and contributions to open-source tooling and communities.</p>
+    </section>
+
+    <!-- Image popup modal (opens when fragment #test is present) -->
+    <div id="test" class="modal" aria-hidden="true">
+      <a class="modal-close" href="#" title="Close">×</a>
+      <div class="modal-content" role="dialog" aria-modal="true" aria-label="Image preview">
+        <img src="IMG/me.jpg" alt="Me" />
+      </div>
+    </div>
+
+    <section class="card">
+      <p><a class="btn" href="intro.html">Airplane Busywork</a></p>
+      <p class="muted">This is a simple HTML page created during a flight to experiment with web development and JavaScript functionality.</p>
+    </section>
+
+  </div>
+
+  <script>
+  // Modal JS enhancements preserved from previous version
+  (function () {
+    const modal = document.getElementById('test');
+
+    function isModalOpen() { return location.hash === '#test'; }
+    function removeHash() {
+      try { if (history.replaceState) { history.replaceState(null, '', window.location.pathname + window.location.search); return; } } catch(e){}
+      try { const sx = window.scrollX||0, sy = window.scrollY||0; location.hash=''; setTimeout(()=>window.scrollTo(sx,sy),0); } catch(e){}
+    }
+    function closeModal() { if (modal) modal.classList.remove('open'); modal && modal.setAttribute('aria-hidden','true'); if (!isModalOpen()) return; removeHash(); }
+    function openModal() { if (modal) { modal.setAttribute('aria-hidden','false'); modal.classList.add('open'); const closeBtn = modal.querySelector('.modal-close'); if (closeBtn) closeBtn.focus(); } }
+    if (isModalOpen()) openModal();
+    window.addEventListener('hashchange', ()=>{ if (isModalOpen()) openModal(); else modal && modal.setAttribute('aria-hidden','true'); });
+    document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeModal(); });
+    if (modal) modal.addEventListener('click', (e)=>{ if (e.target === modal) closeModal(); });
+    document.addEventListener('click', (e)=>{ const closeControl = e.target.closest('.modal-close'); if (closeControl) { e.preventDefault(); closeModal(); } });
+  })();
+  </script>
+
 </body>
 </html>

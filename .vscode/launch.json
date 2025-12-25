@@ -8,14 +8,15 @@
             "name": "Launch Chrome",
             "request": "launch",
             "type": "chrome",
-            "url": "http://localhost:8080",
+            "file": "${workspaceFolder}/TestingPage.html",
             "webRoot": "${workspaceFolder}"
         },
         {
-            "type": "chrome",
+            "name": "Launch Chrome (http://localhost:8080)",
             "request": "launch",
-            "name": "Open TestPage.html",
-            "file": "h:\\HoundaCivic_Website\\TestingPage.html"
+            "type": "chrome",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }

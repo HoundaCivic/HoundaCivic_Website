@@ -22,13 +22,13 @@
             gap: 16px;
             padding: 12px 16px;
             margin: 16px auto 0;
-            background: #e5e5e5;
+            background: #222;
             border-radius: 8px;
             flex-wrap: wrap;
         }
 
         nav a {
-            color: #000000;
+            color: #f2f2f2;
             text-decoration: none;
             font-weight: bold;
             padding: 8px 12px;
@@ -36,7 +36,7 @@
         }
 
         nav a:hover {
-            background: #d4d4d4;
+            background: #333;
         }
 
         main {
@@ -75,6 +75,11 @@
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
             user-select: none;
             overflow: visible;
+        }
+
+        .cookie-zone {
+            position: relative;
+            display: inline-block;
         }
 
         #cookie:active {
@@ -128,6 +133,52 @@
             filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
         }
 
+        #effects-layer {
+            position: absolute;
+            inset: -10px;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .float-text {
+            position: absolute;
+            font-weight: bold;
+            color: #0b5138;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            animation: float-up 900ms ease-out forwards;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .float-text.bonus {
+            color: #b85c00;
+        }
+
+        @keyframes float-up {
+            0% { transform: translate(-50%, -10%); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(-50%, -120%); opacity: 0; }
+        }
+
+        #golden-cookie {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff4b0, #f2c14b 60%, #c28b18);
+            box-shadow: 0 6px 12px rgba(194, 139, 24, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            display: none;
+            cursor: pointer;
+            z-index: 4;
+            animation: golden-pulse 1.4s ease-in-out infinite;
+        }
+
+        @keyframes golden-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
         @keyframes orbit-spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -173,6 +224,11 @@
             margin: 0 auto;
         }
 
+        .column {
+            display: grid;
+            gap: 24px;
+        }
+
         @media (min-width: 880px) {
             .layout {
                 grid-template-columns: 360px 1fr;
@@ -204,6 +260,56 @@
             padding: 10px 12px;
             margin-bottom: 10px;
             background: #f7f9fc;
+        }
+
+        #shop {
+            max-height: 420px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        #shop::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #shop::-webkit-scrollbar-track {
+            background: #e7ecf5;
+            border-radius: 999px;
+        }
+
+        #shop::-webkit-scrollbar-thumb {
+            background: #c3cfdf;
+            border-radius: 999px;
+        }
+
+        #achievements {
+            max-height: 320px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        #achievements::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #achievements::-webkit-scrollbar-track {
+            background: #e7ecf5;
+            border-radius: 999px;
+        }
+
+        #achievements::-webkit-scrollbar-thumb {
+            background: #c3cfdf;
+            border-radius: 999px;
+        }
+
+        .purchase-pulse {
+            animation: purchase-flash 600ms ease-out;
+        }
+
+        @keyframes purchase-flash {
+            0% { box-shadow: 0 0 0 rgba(4, 170, 109, 0); transform: translateY(0); }
+            40% { box-shadow: 0 0 14px rgba(4, 170, 109, 0.35); transform: translateY(-2px); }
+            100% { box-shadow: 0 0 0 rgba(4, 170, 109, 0); transform: translateY(0); }
         }
 
         .upgrade-title {
@@ -238,6 +344,64 @@
             color: var(--muted);
             font-size: 13px;
         }
+
+        .achievement {
+            border: 1px solid #dfe6f2;
+            border-radius: 8px;
+            padding: 8px 10px;
+            background: #f7f9fc;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .achievement.locked {
+            opacity: 0.55;
+        }
+
+        .achievement-title {
+            font-weight: bold;
+        }
+
+        .milestone {
+            font-size: 13px;
+            color: #111111;
+            text-align: left;
+            margin-bottom: 6px;
+        }
+
+        .milestone-bar {
+            height: 6px;
+            background: #e7ecf5;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .milestone-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+        }
+
+        .music-frame {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: 0;
+            border-radius: 10px;
+        }
+
+        .secret-rickroll {
+            position: fixed;
+            bottom: 8px;
+            right: 8px;
+            width: 22px;
+            height: 22px;
+            opacity: 0;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            z-index: 10;
+        }
     </style>
 </head>
 
@@ -263,28 +427,56 @@
         </div>
 
         <div class="layout">
-            <div class="panel">
-                <div id="cookie" title="Click me!">
-                    <div id="cursor-orbits" aria-hidden="true"></div>
-                    <div class="chocolate-chip chip1"></div>
-                    <div class="chocolate-chip chip2"></div>
-                    <div class="chocolate-chip chip3"></div>
-                    <div class="chocolate-chip chip4"></div>
-                    <div class="chocolate-chip chip5"></div>
-                    <div class="chocolate-chip chip6"></div>
-                    <div class="chocolate-chip chip7"></div>
+            <div class="column">
+                <div class="panel">
+                    <div class="cookie-zone">
+                        <div id="cookie" title="Click me!">
+                            <div id="cursor-orbits" aria-hidden="true"></div>
+                            <div class="chocolate-chip chip1"></div>
+                            <div class="chocolate-chip chip2"></div>
+                            <div class="chocolate-chip chip3"></div>
+                            <div class="chocolate-chip chip4"></div>
+                            <div class="chocolate-chip chip5"></div>
+                            <div class="chocolate-chip chip6"></div>
+                            <div class="chocolate-chip chip7"></div>
+                        </div>
+                        <div id="golden-cookie" aria-label="Golden cookie"></div>
+                        <div id="effects-layer" aria-hidden="true"></div>
+                    </div>
+                    <br />
+                    <button id="reset-button">Reset Progress</button>
                 </div>
-                <br />
-                <button id="reset-button">Reset Progress</button>
+
+                <div class="panel">
+                    <h3>Achievements</h3>
+                    <div id="achievements"></div>
+                    <h3>Milestones</h3>
+                    <div id="milestones"></div>
+                </div>
             </div>
 
-            <div class="panel">
-                <h3>Upgrades</h3>
-                <div id="shop"></div>
-                <div class="muted">Costs rise with each purchase. Progress saves automatically.</div>
+            <div class="column">
+                <div class="panel">
+                    <h3>Upgrades</h3>
+                    <div id="shop"></div>
+                    <div class="muted">Costs rise with each purchase. Progress saves automatically.</div>
+                </div>
+
+                <div class="panel">
+                    <h3>Lo-fi station</h3>
+                    <div class="muted">Tap play for some chill study beats.</div>
+                    <iframe
+                        class="music-frame"
+                        src="https://www.youtube.com/live/sF80I-TQiW0?si=-ERlp-uYQpC-WuPX"
+                        title="Lo-fi hip hop"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
             </div>
         </div>
     </main>
+    <button class="secret-rickroll" id="secret-rickroll" type="button" aria-label="Secret"></button>
 
     <script>
         (() => {
@@ -310,6 +502,7 @@
         })();
     </script>
 
+    <script src="cookie-achievements.js"></script>
     <script>
 
         const SAVE_KEY = 'cookieGame.save';
@@ -319,7 +512,23 @@
             { id: 'grandma', name: 'Grandma', baseCost: 100, costMultiplier: 1.15, cps: 1, cpc: 0, count: 0, description: 'A loving grandma that bakes 1 CPS.' },
             { id: 'farm', name: 'Farm', baseCost: 1100, costMultiplier: 1.15, cps: 8, cpc: 0, count: 0, description: 'Fresh cookie crops: 8 CPS.' },
             { id: 'mine', name: 'Mine', baseCost: 12000, costMultiplier: 1.15, cps: 47, cpc: 0, count: 0, description: 'Deep cookie veins: 47 CPS.' },
-            { id: 'click', name: 'Click Power', baseCost: 50, costMultiplier: 1.25, cps: 0, cpc: 1, count: 0, description: 'Each level adds +1 cookies per click.' }
+            { id: 'factory', name: 'Factory', baseCost: 130000, costMultiplier: 1.15, cps: 260, cpc: 0, count: 0, description: 'Mass production for 260 CPS.' },
+            { id: 'bank', name: 'Bank', baseCost: 1400000, costMultiplier: 1.15, cps: 1400, cpc: 0, count: 0, description: 'Cookie investments: 1400 CPS.' },
+            { id: 'temple', name: 'Temple', baseCost: 20000000, costMultiplier: 1.15, cps: 7800, cpc: 0, count: 0, description: 'Sacred baking rituals: 7,800 CPS.' },
+            { id: 'shipment', name: 'Shipment', baseCost: 330000000, costMultiplier: 1.15, cps: 44000, cpc: 0, count: 0, description: 'Interstellar cookie delivery: 44,000 CPS.' },
+            { id: 'alchemy', name: 'Alchemy Lab', baseCost: 5100000000, costMultiplier: 1.15, cps: 260000, cpc: 0, count: 0, description: 'Transmute ingredients into cookies: 260,000 CPS.' },
+            { id: 'portal', name: 'Portal', baseCost: 75000000000, costMultiplier: 1.15, cps: 1600000, cpc: 0, count: 0, description: 'Summon cookies from beyond: 1.6M CPS.' },
+            { id: 'click', name: 'Click Power', baseCost: 50, costMultiplier: 1.25, cps: 0, cpc: 1, count: 0, description: 'Each level adds +1 cookies per click.' },
+            { id: 'auto-clicker', name: 'Auto Clicker', baseCost: 500, costMultiplier: 1.2, cps: 3, cpc: 0, count: 0, description: 'Automated clicks: +3 CPS.' },
+            { id: 'turbo-clicker', name: 'Turbo Clicker', baseCost: 6000, costMultiplier: 1.2, cps: 0, cpc: 3, count: 0, description: 'Boost your clicks by +3 CPC.' }
+        ];
+
+        const ACHIEVEMENTS = Array.isArray(window.COOKIE_ACHIEVEMENTS) ? window.COOKIE_ACHIEVEMENTS : [];
+
+        const MILESTONES = [
+            { id: 'total-cookies', label: 'Total cookies baked', thresholds: [100, 1000, 10000, 100000, 1000000, 10000000] },
+            { id: 'total-clicks', label: 'Total clicks', thresholds: [10, 50, 200, 500, 1000, 2500] },
+            { id: 'cps', label: 'Cookies per second', thresholds: [1, 10, 25, 50, 100, 250, 500] }
         ];
 
         function newState() {
@@ -327,7 +536,11 @@
                 cookies: 0,
                 cpc: 1,
                 upgrades: DEFAULT_UPGRADES.map(u => ({ ...u, count: 0 })),
-                lastSave: Date.now()
+                lastSave: Date.now(),
+                totalClicks: 0,
+                totalCookies: 0,
+                achievements: new Set(),
+                goldenClicks: 0
             };
         }
 
@@ -339,6 +552,11 @@
         const resetButton = document.getElementById('reset-button');
         const shopEl = document.getElementById('shop');
         const cursorOrbitsEl = document.getElementById('cursor-orbits');
+        const effectsLayerEl = document.getElementById('effects-layer');
+        const goldenCookieEl = document.getElementById('golden-cookie');
+        const achievementsEl = document.getElementById('achievements');
+        const milestonesEl = document.getElementById('milestones');
+        const secretRickroll = document.getElementById('secret-rickroll');
 
         // ====== Helpers ======
         const UNITS = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc'];
@@ -380,7 +598,11 @@
             return {
                 cookies: state.cookies,
                 upgrades: counts,
-                lastSave: state.lastSave
+                lastSave: state.lastSave,
+                totalClicks: state.totalClicks,
+                totalCookies: state.totalCookies,
+                achievements: Array.from(state.achievements),
+                goldenClicks: state.goldenClicks
             };
         }
 
@@ -400,6 +622,10 @@
                 const data = JSON.parse(raw);
                 const state = newState();
                 state.cookies = typeof data.cookies === 'number' ? data.cookies : 0;
+                state.totalClicks = typeof data.totalClicks === 'number' ? data.totalClicks : 0;
+                state.totalCookies = typeof data.totalCookies === 'number' ? data.totalCookies : 0;
+                state.achievements = new Set(Array.isArray(data.achievements) ? data.achievements : []);
+                state.goldenClicks = typeof data.goldenClicks === 'number' ? data.goldenClicks : 0;
 
                 // Rebuild upgrades from defaults to keep definitions in sync
                 const savedCounts = data.upgrades || {};
@@ -419,6 +645,7 @@
 
                 if (offlineEarned > 0) {
                     state.cookies += offlineEarned;
+                    state.totalCookies += offlineEarned;
                 }
                 state.lastSave = Date.now();
                 return state;
@@ -498,6 +725,8 @@
             });
 
             updateCursorOrbits(state);
+            updateAchievements(state);
+            updateMilestones(state);
         }
 
         let lastCursorCount = -1;
@@ -536,6 +765,122 @@
             cursorOrbitsEl.appendChild(fragment);
         }
 
+        function spawnFloat(text, x, y, className) {
+            if (!effectsLayerEl) return;
+            const el = document.createElement('div');
+            el.className = `float-text ${className || ''}`.trim();
+            el.textContent = text;
+            el.style.left = `${x}px`;
+            el.style.top = `${y}px`;
+            effectsLayerEl.appendChild(el);
+            el.addEventListener('animationend', () => el.remove());
+        }
+
+        function unlockAchievement(state, achievement) {
+            if (state.achievements.has(achievement.id)) return;
+            state.achievements.add(achievement.id);
+            spawnFloat('Achievement!', cookieEl.offsetWidth / 2, -4, 'bonus');
+        }
+
+        let lastAchievementKey = '';
+        function achievementUnlocked(state, achievement) {
+            const totalUpgrades = state.upgrades.reduce((sum, u) => sum + u.count, 0);
+            switch (achievement.type) {
+                case 'clicks':
+                    return state.totalClicks >= achievement.value;
+                case 'totalCookies':
+                    return state.totalCookies >= achievement.value;
+                case 'cps':
+                    return totalCPS(state) >= achievement.value;
+                case 'upgrades':
+                    return totalUpgrades >= achievement.value;
+                case 'goldenClicks':
+                    return state.goldenClicks >= achievement.value;
+                default:
+                    return false;
+            }
+        }
+
+        function updateAchievements(state) {
+            ACHIEVEMENTS.forEach(achievement => {
+                if (!state.achievements.has(achievement.id) && achievementUnlocked(state, achievement)) {
+                    unlockAchievement(state, achievement);
+                }
+            });
+
+            if (!achievementsEl) return;
+            const key = Array.from(state.achievements).sort().join('|');
+            if (key === lastAchievementKey && achievementsEl.children.length === ACHIEVEMENTS.length) {
+                return;
+            }
+            lastAchievementKey = key;
+            achievementsEl.innerHTML = '';
+            ACHIEVEMENTS.forEach(achievement => {
+                const item = document.createElement('div');
+                item.className = `achievement ${state.achievements.has(achievement.id) ? '' : 'locked'}`.trim();
+
+                const title = document.createElement('div');
+                title.className = 'achievement-title';
+                title.textContent = achievement.name;
+
+                const desc = document.createElement('div');
+                desc.className = 'muted';
+                desc.textContent = achievement.description;
+
+                item.appendChild(title);
+                item.appendChild(desc);
+                achievementsEl.appendChild(item);
+            });
+        }
+
+        let lastMilestoneUpdate = 0;
+        function updateMilestones(state) {
+            if (!milestonesEl) return;
+            const now = performance.now();
+            if (now - lastMilestoneUpdate < 250 && milestonesEl.children.length > 0) return;
+            lastMilestoneUpdate = now;
+            milestonesEl.innerHTML = '';
+            const values = {
+                'total-cookies': state.totalCookies,
+                'total-clicks': state.totalClicks,
+                'cps': totalCPS(state)
+            };
+
+            MILESTONES.forEach(milestone => {
+                const current = values[milestone.id] || 0;
+                const next = milestone.thresholds.find(t => current < t) || milestone.thresholds[milestone.thresholds.length - 1];
+                const prev = milestone.thresholds.findIndex(t => current < t) - 1;
+                const prevValue = prev >= 0 ? milestone.thresholds[prev] : 0;
+                const progress = next > prevValue ? Math.min(1, (current - prevValue) / (next - prevValue)) : 1;
+
+                const item = document.createElement('div');
+                item.className = 'milestone';
+                item.innerHTML = `
+                    <div>${milestone.label}: ${formatNumber(current)} / ${formatNumber(next)}</div>
+                    <div class="milestone-bar"><div class="milestone-fill" style="width:${Math.round(progress * 100)}%"></div></div>
+                `;
+                milestonesEl.appendChild(item);
+            });
+        }
+
+        function spawnGoldenCookie() {
+            if (!goldenCookieEl || goldenCookieEl.style.display === 'block') return;
+            const zone = cookieEl.getBoundingClientRect();
+            const size = 44;
+            const padding = 10;
+            const maxX = Math.max(padding, zone.width - size - padding);
+            const maxY = Math.max(padding, zone.height - size - padding);
+            const x = padding + Math.random() * maxX;
+            const y = padding + Math.random() * maxY;
+            goldenCookieEl.style.left = `${x}px`;
+            goldenCookieEl.style.top = `${y}px`;
+            goldenCookieEl.style.display = 'block';
+
+            setTimeout(() => {
+                if (goldenCookieEl) goldenCookieEl.style.display = 'none';
+            }, 6500);
+        }
+
         // ====== Game Logic ======
         let state = load();
         buildShop(state);
@@ -555,19 +900,61 @@
                 recomputeCPC(state);
             }
 
+            const card = document.getElementById(`upgrade-${upg.id}`);
+            if (card) {
+                card.classList.remove('purchase-pulse');
+                void card.offsetWidth;
+                card.classList.add('purchase-pulse');
+            }
+
             updateUI(state);
             save(state);
         }
 
-        cookieEl.addEventListener('click', () => {
+        cookieEl.addEventListener('click', (event) => {
             state.cookies += state.cpc;
+            state.totalCookies += state.cpc;
+            state.totalClicks += 1;
             updateUI(state);
             // Small visual feedback
             cookieEl.style.transform = 'scale(0.96)';
             setTimeout(() => cookieEl.style.transform = '', 80);
+            if (event && effectsLayerEl) {
+                const rect = effectsLayerEl.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                spawnFloat(`+${formatNumber(state.cpc)}`, x, y);
+            }
+            if (Math.random() < 0.02) {
+                spawnGoldenCookie();
+            }
             // Save-on-action
             save(state);
         });
+
+        if (goldenCookieEl) {
+            goldenCookieEl.addEventListener('click', (event) => {
+                const bonus = Math.max(25, Math.round(totalCPS(state) * 15), state.cpc * 20);
+                state.cookies += bonus;
+                state.totalCookies += bonus;
+                state.goldenClicks += 1;
+                goldenCookieEl.style.display = 'none';
+                if (event && effectsLayerEl) {
+                    const rect = effectsLayerEl.getBoundingClientRect();
+                    const x = event.clientX - rect.left;
+                    const y = event.clientY - rect.top;
+                    spawnFloat(`+${formatNumber(bonus)}`, x, y, 'bonus');
+                }
+                updateUI(state);
+                save(state);
+            });
+        }
+
+        if (secretRickroll) {
+            secretRickroll.addEventListener('click', () => {
+                window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank', 'noopener');
+            });
+        }
 
         resetButton.addEventListener('click', () => {
             const sure = confirm('Reset all progress? This cannot be undone.');
@@ -587,7 +974,9 @@
 
             const cps = totalCPS(state);
             if (cps > 0 && deltaSec > 0) {
-                state.cookies += cps * deltaSec;
+                const earned = cps * deltaSec;
+                state.cookies += earned;
+                state.totalCookies += earned;
                 updateUI(state);
             }
             requestAnimationFrame(tick);
@@ -596,6 +985,13 @@
 
         // Autosave every 5 seconds
         setInterval(() => save(state), 5000);
+
+        // Periodic chance for a golden cookie event
+        setInterval(() => {
+            if (Math.random() < 0.35) {
+                spawnGoldenCookie();
+            }
+        }, 20000);
     </script>
 </body>
 

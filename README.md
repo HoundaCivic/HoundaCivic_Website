@@ -3,11 +3,11 @@
 Static portfolio site built with plain HTML/CSS/JS. It hosts a landing page plus a handful of small demo pages and experiments.
 
 ## Pages
-- `Home.html`: main landing page with project links and featured work.
-- `WhoAmI.html`: bio, resume details, tech stack, and contact links.
-- `CookieClicker.html`: cookie clicker-style game with upgrades and save/load in local storage.
-- `ChatBot.html`: Gemini API chat UI (client-side) with local key storage.
-- `AirplaneBusywork.html`: "Airplane Busywork" mini page with simple JavaScript interactivity.
+- `index.html`: main landing page with project links and featured work.
+- `who-am-i.html`: bio, resume details, tech stack, and contact links.
+- `cookie-clicker.html`: cookie clicker-style game with upgrades and save/load in local storage.
+- `chat-bot.html`: Gemini API chat UI (client-side) with local key storage.
+- `airplane-busywork.html`: "Airplane Busywork" mini page with simple JavaScript interactivity.
 
 ## Structure
 - `Broderick_Pride_resume_2025.pdf`: downloadable resume PDF linked from the Who Am I page.
@@ -15,7 +15,7 @@ Static portfolio site built with plain HTML/CSS/JS. It hosts a landing page plus
 - `IMG/`: images used across pages (profile image, pancake shark, etc.).
 
 ## How to Run
-- Open `Home.html` in a browser to start.
+- Open `index.html` in a browser to start.
 - No build step required.
 - The chat bot page needs a Gemini API key and network access.
 

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Who Am I</title>
+        <link rel="stylesheet" href="Styles/style.css">
+    </head>
+    <body>
+        <div class="container">
+            <header class="enter">
+                <h1>Who Am I</h1>
+                <nav class="topnav" aria-label="Primary">
+                    <a href="Home.html">Home</a>
+                    <a href="CookieClicker.html">Cookie Clicker</a>
+                    <a class="active" href="WhoAmI.html">Who Am I</a>
+                    <a href="Hobbies.html">Hobbies</a>
+                    <a href="ChatBot.html">Chat Bot</a>
+                </nav>
+                <div class="theme-controls">
+                    <button class="theme-toggle" type="button" id="themeToggle">Dark Mode</button>
+                </div>
+            </header>
+
+            <section class="card">
+                <h2>About Me</h2>
+                <div class="about-layout">
+                    <div class="about-text">
+                        <p>Hello, my name is Broderick Pride. I am a software developer, that typically goes by HoundaCivic online, and enjoy making things work.
+                            I focus on building practical web, Android, and tooling projects, and I have experience in HTML, CSS, JavaScript, Python, and C++.
+                            My background also includes supporting build pipelines and troubleshooting in regulated aerospace environments with sensitive electronics.
+                            I am currently learning more about web and game development, and in my free time I enjoy video games, reading, and expanding my coding skills.
+                            Thank you for visiting my portfolio!</p>
+                    </div>
+                    <figure class="about-photo">
+                        <img src="IMG/me.jpg" alt="Broderick Pride">
+                        <figcaption class="muted">Broderick Pride</figcaption>
+                    </figure>
+                </div>
+                <p><a class="btn" href="Broderick_Pride_resume_2025.pdf" download>Download Resume (PDF)</a></p>
+            </section>
+
+            <section class="card">
+                <h2>Tech Stack</h2>
+                <ul>
+                    <li><strong>Languages:</strong> HTML, CSS, JavaScript/TypeScript, Python, SQL, C#, Java, Kotlin, C, C++, Lua</li>
+                    <li><strong>Web/Backend:</strong> Vanilla JavaScript, basic Node.js, REST-style APIs, C#/.NET</li>
+                    <li><strong>Databases:</strong> SQLite, SQL Server, MySQL, Oracle, Neo4j Cypher, Cassandra CQL, MongoDB</li>
+                    <li><strong>Tools:</strong> Git/GitHub, Docker, Unity, Godot, Visual Studio, VS Code, Android Studio</li>
+                    <li><strong>Systems:</strong> Windows, Linux/Ubuntu, debugging, basic unit testing, Agile/Scrum exposure</li>
+                    <li><strong>AI/ML:</strong> NVIDIA predictive maintenance and deep learning coursework</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h2>Timeline</h2>
+                <ul class="timeline">
+                    <li>
+                        <div class="timeline-meta">Sep 2025 - Present</div>
+                        <h3>Trisphere LLC — Software Build Engineer Intern</h3>
+                        <p>Support software build and deployment pipelines, update build scripts, and troubleshoot configuration issues.</p>
+                    </li>
+                    <li>
+                        <div class="timeline-meta">Jan 2024 - Present</div>
+                        <h3>ICON Aerospace — Technician</h3>
+                        <p>Diagnose and repair aircraft components, handle sensitive electronics, and interpret technical documentation.</p>
+                    </li>
+                    <li>
+                        <div class="timeline-meta">2022 - Present (Expected Mar 2026)</div>
+                        <h3>ECPI University — B.S. Information Technology</h3>
+                        <p>Software Development & Coding. Coursework includes Java/C#, Kotlin/Android, and SQL/SQLite.</p>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h2>Projects</h2>
+                <ul>
+                    <li><strong>FieldCraft</strong> — Android / Kotlin app with Jetpack Compose UI, offline SQLite storage, and search/filter.</li>
+                    <li><strong>612th Attack Battalion</strong> — Modular Arma 3 auxiliary mod with versioned releases and player documentation.</li>
+                    <li><strong>Web & Scripting Coursework</strong> — JavaScript web apps and Python scripts for data processing and analytics.</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h2>Licenses & Certifications</h2>
+                <ul>
+                    <li>Applications of AI for Predictive Maintenance — NVIDIA (Issued Dec 2025).</li>
+                    <li>Fundamentals of Deep Learning — NVIDIA (Issued Oct 2025).</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h2>Get in touch</h2>
+                <p>For quickest response, email me directly.</p>
+                <p>
+                    <a class="btn" href="mailto:pride.brody@outlook.com">Email Me</a>
+                    <a class="btn secondary" href="https://github.com/HoundaCivic" target="_blank" rel="noopener">GitHub</a>
+                    <a class="btn secondary" href="https://www.linkedin.com/in/brody-pride/" target="_blank" rel="noopener">LinkedIn</a>
+                </p>
+            </section>
+
+            <footer class="site-footer">
+                <span>Let’s connect:</span>
+                <span>
+                    <a href="mailto:pride.brody@outlook.com">Email</a>
+                    · <a href="https://github.com/HoundaCivic" target="_blank" rel="noopener">GitHub</a>
+                    · <a href="https://www.linkedin.com/in/brody-pride/" target="_blank" rel="noopener">LinkedIn</a>
+                    · <a href="https://steamcommunity.com/id/DragonHart99/myworkshopfiles/?appid=107410" target="_blank" rel="noopener">Steam Workshop</a>
+                </span>
+            </footer>
+
+        </div>
+
+        <script>
+            (() => {
+                const root = document.documentElement;
+                const stored = localStorage.getItem("theme");
+                if (stored === "light" || stored === "dark") {
+                    root.setAttribute("data-theme", stored);
+                }
+                const button = document.getElementById("themeToggle");
+                if (!button) return;
+                const setLabel = () => {
+                    const isDark = root.getAttribute("data-theme") === "dark";
+                    button.textContent = isDark ? "Light Mode" : "Dark Mode";
+                };
+                setLabel();
+                button.addEventListener("click", () => {
+                    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+                    root.setAttribute("data-theme", next);
+                    localStorage.setItem("theme", next);
+                    setLabel();
+                });
+            })();
+        </script>
+    </body>
+</html>

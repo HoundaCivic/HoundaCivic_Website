@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0" />
-    <title>Cookie Clicker Game</title>
+    <title>Cookie Clicker</title>
+    <link rel="stylesheet" href="Styles/style.css">
     <style>
         /* Base page styling */
         body {
             text-align: center;
-            font-family: 'Arial', sans-serif;
-            background-color: #f0e6d6;
             margin: 0;
             padding: 0 16px 60px;
+            color: #000;
         }
 
         /* Simple nav */
@@ -21,19 +21,22 @@
             display: flex;
             gap: 16px;
             padding: 12px 16px;
-            margin: 0;
-            background: #fff7e6;
-            border-bottom: 1px solid #e2d3be;
+            margin: 16px auto 0;
+            background: #e5e5e5;
+            border-radius: 8px;
+            flex-wrap: wrap;
         }
 
         nav a {
-            color: #5e3d0c;
+            color: #000000;
             text-decoration: none;
             font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 6px;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            background: #d4d4d4;
         }
 
         main {
@@ -42,7 +45,7 @@
 
         h2 {
             font-size: 32px;
-            color: #5e3d0c;
+            color: inherit;
             margin: 12px 0 8px;
         }
 
@@ -50,11 +53,11 @@
             font-size: 28px;
             font-weight: bold;
             margin: 8px 0 12px;
-            color: #5e3d0c;
+            color: inherit;
         }
 
         #stats {
-            color: #5e3d0c;
+            color: inherit;
             font-weight: bold;
             margin-bottom: 18px;
         }
@@ -71,6 +74,7 @@
             position: relative;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
             user-select: none;
+            overflow: visible;
         }
 
         #cookie:active {
@@ -84,6 +88,49 @@
             background-color: #4b2e1f;
             border-radius: 50%;
             position: absolute;
+            z-index: 1;
+        }
+
+        #cursor-orbits {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .cursor-orbit {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            transform: rotate(var(--start-angle));
+        }
+
+        .cursor-spin {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            animation: orbit-spin 6s linear infinite;
+        }
+
+        .cursor-triangle {
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 12px solid var(--accent);
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes orbit-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         /* Chip positions */
@@ -100,7 +147,7 @@
             padding: 12px 24px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #8b4513;
+            background-color: var(--accent);
             color: white;
             border: none;
             border-radius: 8px;
@@ -109,7 +156,7 @@
         }
 
         button:hover {
-            background-color: #a0522d;
+            background-color: #038c59;
         }
 
         button:disabled {
@@ -134,16 +181,17 @@
         }
 
         .panel {
-            background: #fff7e6;
-            border: 1px solid #e2d3be;
+            background: var(--card);
+            color: #111111;
+            border: 1px solid #dfe6f2;
             border-radius: 12px;
             padding: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 6px 18px rgba(15, 30, 50, 0.06);
         }
 
         .panel h3 {
             margin: 0 0 12px;
-            color: #5e3d0c;
+            color: inherit;
         }
 
         #shop .upgrade {
@@ -151,25 +199,25 @@
             grid-template-columns: 1fr auto;
             gap: 8px 12px;
             align-items: center;
-            border: 1px solid #e2d3be;
+            border: 1px solid #dfe6f2;
             border-radius: 10px;
             padding: 10px 12px;
             margin-bottom: 10px;
-            background: #fffdfa;
+            background: #f7f9fc;
         }
 
         .upgrade-title {
             font-weight: bold;
-            color: #5e3d0c;
+            color: #111111;
         }
 
         .upgrade-desc {
-            color: #7a5a2a;
+            color: var(--muted);
             font-size: 13px;
         }
 
         .upgrade-meta {
-            color: #5e3d0c;
+            color: #111111;
             font-size: 13px;
         }
 
@@ -187,7 +235,7 @@
         }
 
         .muted {
-            color: #7a5a2a;
+            color: var(--muted);
             font-size: 13px;
         }
     </style>
@@ -196,15 +244,19 @@
 <body>
     <nav>
         <ul>
-            <li><a href="Who_Am_I.html">Home</a></li>
-            <li><a href="Basic_Game.html">Cookie_Clicker</a></li>
-            <li><a href="contact.asp">Contact</a></li>
-            <li><a href="about.asp">About</a></li>
+            <li><a href="Home.html">Home</a></li>
+            <li><a href="CookieClicker.html">Cookie Clicker</a></li>
+            <li><a href="WhoAmI.html">Who Am I</a></li>
+            <li><a href="Hobbies.html">Hobbies</a></li>
+            <li><a href="ChatBot.html">Chat Bot</a></li>
         </ul>
     </nav>
+    <div class="theme-controls">
+        <button class="theme-toggle" type="button" id="themeToggle">Dark Mode</button>
+    </div>
 
     <main>
-        <h2>Cookie Clicker Game</h2>
+        <h1>Cookie Clicker</h1>
         <p>Score: <span id="score">0</span></p>
         <div id="stats">
             CPC: <span id="cpc">1</span> | CPS: <span id="cps">0</span>
@@ -213,6 +265,7 @@
         <div class="layout">
             <div class="panel">
                 <div id="cookie" title="Click me!">
+                    <div id="cursor-orbits" aria-hidden="true"></div>
                     <div class="chocolate-chip chip1"></div>
                     <div class="chocolate-chip chip2"></div>
                     <div class="chocolate-chip chip3"></div>
@@ -234,22 +287,30 @@
     </main>
 
     <script>
-        // ====== Game Data Shapes ======
-        // GameState:
-        // - cookies: number
-        // - cpc: number (cookies per click)
-        // - upgrades: Upgrade[]
-        // - lastSave: number (timestamp)
-        //
-        // Upgrade:
-        // - id: string
-        // - name: string
-        // - baseCost: number
-        // - costMultiplier: number
-        // - cps: number (per owned unit; 0 for click-only)
-        // - cpc: number (per owned unit; 0 for generators)
-        // - count: number
-        // - description: string
+        (() => {
+            const root = document.documentElement;
+            const stored = localStorage.getItem("theme");
+            if (stored === "light" || stored === "dark") {
+                root.setAttribute("data-theme", stored);
+            }
+            const button = document.getElementById("themeToggle");
+            if (button) {
+                const setLabel = () => {
+                    const isDark = root.getAttribute("data-theme") === "dark";
+                    button.textContent = isDark ? "Light Mode" : "Dark Mode";
+                };
+                setLabel();
+                button.addEventListener("click", () => {
+                    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+                    root.setAttribute("data-theme", next);
+                    localStorage.setItem("theme", next);
+                    setLabel();
+                });
+            }
+        })();
+    </script>
+
+    <script>
 
         const SAVE_KEY = 'cookieGame.save';
 
@@ -277,6 +338,7 @@
         const cpsEl = document.getElementById('cps');
         const resetButton = document.getElementById('reset-button');
         const shopEl = document.getElementById('shop');
+        const cursorOrbitsEl = document.getElementById('cursor-orbits');
 
         // ====== Helpers ======
         const UNITS = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc'];
@@ -417,6 +479,9 @@
         }
 
         function updateUI(state) {
+            if (shopEl && shopEl.children.length === 0) {
+                buildShop(state);
+            }
             scoreEl.textContent = formatNumber(state.cookies);
             cpcEl.textContent = formatNumber(state.cpc);
             cpsEl.textContent = formatNumber(totalCPS(state));
@@ -431,6 +496,44 @@
                 if (countSpan) countSpan.textContent = upg.count.toString();
                 if (buyBtn) buyBtn.disabled = state.cookies < cost;
             });
+
+            updateCursorOrbits(state);
+        }
+
+        let lastCursorCount = -1;
+        function updateCursorOrbits(state) {
+            if (!cursorOrbitsEl) return;
+            const cursorUpg = state.upgrades.find(u => u.id === 'cursor');
+            const count = cursorUpg ? cursorUpg.count : 0;
+            if (count === lastCursorCount) return;
+            lastCursorCount = count;
+
+            cursorOrbitsEl.innerHTML = '';
+            if (count <= 0) return;
+
+            const radius = Math.round(cookieEl.offsetWidth / 2 + 14);
+            const fragment = document.createDocumentFragment();
+            const slice = 360 / count;
+
+            for (let i = 0; i < count; i++) {
+                const orbit = document.createElement('div');
+                orbit.className = 'cursor-orbit';
+                orbit.style.setProperty('--start-angle', `${slice * i}deg`);
+
+                const spinner = document.createElement('div');
+                spinner.className = 'cursor-spin';
+                spinner.style.animationDelay = `${(i * 0.12) % 1.5}s`;
+
+                const triangle = document.createElement('div');
+                triangle.className = 'cursor-triangle';
+                triangle.style.transform = `translate(-50%, -50%) translateY(-${radius}px) rotate(180deg)`;
+
+                spinner.appendChild(triangle);
+                orbit.appendChild(spinner);
+                fragment.appendChild(orbit);
+            }
+
+            cursorOrbitsEl.appendChild(fragment);
         }
 
         // ====== Game Logic ======

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hobbies</title>
+    <link rel="stylesheet" href="Styles/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <header class="enter">
+        <h1>Hobbies</h1>
+        <nav class="topnav" aria-label="Primary">
+          <a href="Home.html">Home</a>
+          <a href="CookieClicker.html">Cookie Clicker</a>
+          <a href="WhoAmI.html">Who Am I</a>
+          <a class="active" href="Hobbies.html">Hobbies</a>
+          <a href="ChatBot.html">Chat Bot</a>
+        </nav>
+        <div class="theme-controls">
+          <button class="theme-toggle" type="button" id="themeToggle">Dark Mode</button>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>Airsoft</h2>
+        <p>I enjoy competitive airsoft events, team coordination, and working with gear setups. It is a great mix of strategy, communication, and hands-on problem solving, and I value clear roles and teamwork to keep squads moving as one. I have attended multiple military simulation events across the United States, including events in Georgia, California, Virginia, and North Carolina. I am part of a growing community of players called Naughty Dogz Airsoft, and I actively helped organize the team for large events such as Atlantic Front and Fulda Gap.</p>
+      </section>
+
+      <section class="card">
+        <h2>Texture Work</h2>
+        <p>I create textures specifically for Arma 3 assets, focusing on clean materials, believable wear, and consistent style across a scene. I also built Arma 3 mods for five years and created missions for community play. I hosted 20+ person events and organized community groups of up to 40 players for larger sessions.</p>
+        <p><a href="https://steamcommunity.com/id/DragonHart99/myworkshopfiles/?appid=107410" target="_blank" rel="noopener">Steam Workshop</a></p>
+      </section>
+
+      <section class="card">
+        <h2>Gallery</h2>
+        <h3>Airsoft</h3>
+        <div class="gallery">
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" data-full="IMG/airsoft/6621198230406536262.jpeg" aria-label="Open airsoft photo">
+              <img src="IMG/airsoft/6621198230406536262.jpeg" alt="Airsoft event photo">
+            </button>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" data-full="IMG/airsoft/IMG_4302.JPG" aria-label="Open airsoft photo">
+              <img src="IMG/airsoft/IMG_4302.JPG" alt="Airsoft event photo">
+            </button>
+          </figure>
+        </div>
+
+        <h3>Arma Screenshots</h3>
+        <div class="gallery">
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" data-full="IMG/arma_screenshots/20230419173948_1.JPG" aria-label="Open Arma screenshot">
+              <img src="IMG/arma_screenshots/20230419173948_1.JPG" alt="Arma screenshot">
+            </button>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" data-full="IMG/arma_screenshots/20240407225617_1.JPG" aria-label="Open Arma screenshot">
+              <img src="IMG/arma_screenshots/20240407225617_1.JPG" alt="Arma screenshot">
+            </button>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" data-full="IMG/arma_screenshots/20241110001810_1.JPG" aria-label="Open Arma screenshot">
+              <img src="IMG/arma_screenshots/20241110001810_1.JPG" alt="Arma screenshot">
+            </button>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" data-full="IMG/arma_screenshots/20241115183024_1.JPG" aria-label="Open Arma screenshot">
+              <img src="IMG/arma_screenshots/20241115183024_1.JPG" alt="Arma screenshot">
+            </button>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" data-full="IMG/arma_screenshots/20241212220102_1.JPG" aria-label="Open Arma screenshot">
+              <img src="IMG/arma_screenshots/20241212220102_1.JPG" alt="Arma screenshot">
+            </button>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" data-full="IMG/arma_screenshots/20250107214354_1.JPG" aria-label="Open Arma screenshot">
+              <img src="IMG/arma_screenshots/20250107214354_1.JPG" alt="Arma screenshot">
+            </button>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" data-full="IMG/arma_screenshots/20250126221442_1.JPG" aria-label="Open Arma screenshot">
+              <img src="IMG/arma_screenshots/20250126221442_1.JPG" alt="Arma screenshot">
+            </button>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" data-full="IMG/arma_screenshots/image 2.PNG" aria-label="Open Arma screenshot">
+              <img src="IMG/arma_screenshots/image 2.PNG" alt="Arma screenshot">
+            </button>
+          </figure>
+          <figure class="gallery-item">
+            <button class="gallery-button" type="button" data-full="IMG/arma_screenshots/image.PNG" aria-label="Open Arma screenshot">
+              <img src="IMG/arma_screenshots/image.PNG" alt="Arma screenshot">
+            </button>
+          </figure>
+        </div>
+      </section>
+    </div>
+
+    <div class="lightbox" id="lightbox" hidden>
+      <div class="lightbox-backdrop" data-close="true"></div>
+      <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="Expanded image">
+        <button class="lightbox-close" type="button" aria-label="Close image" data-close="true">&times;</button>
+        <img id="lightboxImage" src="" alt="">
+      </div>
+    </div>
+
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const stored = localStorage.getItem("theme");
+        if (stored === "light" || stored === "dark") {
+          root.setAttribute("data-theme", stored);
+        }
+        const button = document.getElementById("themeToggle");
+        if (button) {
+          const setLabel = () => {
+            const isDark = root.getAttribute("data-theme") === "dark";
+            button.textContent = isDark ? "Light Mode" : "Dark Mode";
+          };
+          setLabel();
+          button.addEventListener("click", () => {
+            const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            root.setAttribute("data-theme", next);
+            localStorage.setItem("theme", next);
+            setLabel();
+          });
+        }
+      })();
+    </script>
+
+    <script>
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImage = document.getElementById("lightboxImage");
+
+      const openLightbox = (src, alt) => {
+        lightboxImage.src = src;
+        lightboxImage.alt = alt || "Expanded image";
+        lightbox.hidden = false;
+        document.body.style.overflow = "hidden";
+      };
+
+      const closeLightbox = () => {
+        lightbox.hidden = true;
+        lightboxImage.src = "";
+        document.body.style.overflow = "";
+      };
+
+      document.querySelectorAll(".gallery-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const img = button.querySelector("img");
+          const full = button.getAttribute("data-full") || img.src;
+          openLightbox(full, img.alt);
+        });
+      });
+
+      lightbox.addEventListener("click", (event) => {
+        if (event.target && event.target.dataset.close) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !lightbox.hidden) {
+          closeLightbox();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Chat Bot</title>
+  <link rel="stylesheet" href="Styles/style.css">
+  <style>
+    .chat-shell{display:flex;flex-direction:column;gap:12px}
+    .chat-log{height:360px;overflow:auto;border:1px solid rgba(0,0,0,0.12);border-radius:10px;padding:12px;background:#f7fafc;color:#111}
+    .chat-row{margin:8px 0;display:flex}
+    .chat-row.user{justify-content:flex-end}
+    .chat-bubble{max-width:82%;padding:10px 12px;border-radius:12px;white-space:pre-wrap;word-wrap:break-word}
+    .chat-row.user .chat-bubble{background:#04AA6D;color:#fff;border-bottom-right-radius:4px}
+    .chat-row.bot .chat-bubble{background:#e8edf6;color:#111;border-bottom-left-radius:4px}
+    .chat-controls{display:flex;gap:8px;flex-wrap:wrap}
+    .chat-controls input,.chat-controls textarea{flex:1 1 220px;border:1px solid rgba(0,0,0,0.18);border-radius:8px;padding:8px}
+    .chat-controls textarea{min-height:84px;resize:vertical}
+    .chat-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .chat-meta small{color:#666}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="enter">
+      <h1>Chat Bot</h1>
+      <p class="muted">Fast client-side chat with the Gemini API.</p>
+      <nav class="topnav" aria-label="Primary">
+        <a href="Home.html">Home</a>
+        <a href="CookieClicker.html">Cookie Clicker</a>
+        <a href="WhoAmI.html">Who Am I</a>
+        <a href="Hobbies.html">Hobbies</a>
+        <a class="active" href="ChatBot.html">Chat Bot</a>
+      </nav>
+      <div class="theme-controls">
+        <button class="theme-toggle" type="button" id="themeToggle">Dark Mode</button>
+      </div>
+    </header>
+
+    <section class="card chat-shell">
+      <div class="chat-meta">
+        <label for="apiKey"><strong>API key</strong></label>
+        <input id="apiKey" type="password" placeholder="Paste your Gemini API key">
+        <button class="btn secondary" id="saveKey">Save key</button>
+        <small id="keyStatus">Not saved</small>
+      </div>
+
+      <div id="chatLog" class="chat-log" aria-live="polite"></div>
+
+      <div class="chat-controls">
+        <textarea id="userInput" placeholder="Ask anything..."></textarea>
+        <button class="btn" id="sendBtn">Send</button>
+        <button class="btn secondary" id="clearBtn">Clear</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const stored = localStorage.getItem("theme");
+      if (stored === "light" || stored === "dark") {
+        root.setAttribute("data-theme", stored);
+      }
+      const button = document.getElementById("themeToggle");
+      if (button) {
+        const setLabel = () => {
+          const isDark = root.getAttribute("data-theme") === "dark";
+          button.textContent = isDark ? "Light Mode" : "Dark Mode";
+        };
+        setLabel();
+        button.addEventListener("click", () => {
+          const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          root.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+          setLabel();
+        });
+      }
+    })();
+  </script>
+
+  <script>
+    const chatLog = document.getElementById("chatLog");
+    const userInput = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const apiKeyInput = document.getElementById("apiKey");
+    const saveKeyBtn = document.getElementById("saveKey");
+    const keyStatus = document.getElementById("keyStatus");
+
+    let abortController = null;
+
+    const STORAGE_KEY = "gemini_api_key";
+    const MODEL = "gemini-1.5-flash";
+
+    const setKeyStatus = (text) => {
+      keyStatus.textContent = text;
+    };
+
+    const loadKey = () => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        apiKeyInput.value = saved;
+        setKeyStatus("Saved");
+      }
+    };
+
+    const saveKey = () => {
+      const key = apiKeyInput.value.trim();
+      if (!key) {
+        localStorage.removeItem(STORAGE_KEY);
+        setKeyStatus("Not saved");
+        return;
+      }
+      localStorage.setItem(STORAGE_KEY, key);
+      setKeyStatus("Saved");
+    };
+
+    const appendMessage = (role, text) => {
+      const row = document.createElement("div");
+      row.className = `chat-row ${role}`;
+      const bubble = document.createElement("div");
+      bubble.className = "chat-bubble";
+      bubble.textContent = text;
+      row.appendChild(bubble);
+      chatLog.appendChild(row);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    };
+
+    const setBusy = (isBusy) => {
+      sendBtn.disabled = isBusy;
+      userInput.disabled = isBusy;
+      sendBtn.textContent = isBusy ? "Sending..." : "Send";
+    };
+
+    const callGemini = async (prompt) => {
+      const apiKey = apiKeyInput.value.trim();
+      if (!apiKey) {
+        appendMessage("bot", "Missing API key. Add one above first.");
+        return;
+      }
+
+      if (abortController) abortController.abort();
+      abortController = new AbortController();
+
+      setBusy(true);
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.4, maxOutputTokens: 512 }
+          }),
+          signal: abortController.signal
+        });
+
+        if (!res.ok) {
+          const errText = await res.text();
+          appendMessage("bot", `Request failed (${res.status}). ${errText}`.slice(0, 600));
+          return;
+        }
+
+        const data = await res.json();
+        const reply =
+          data?.candidates?.[0]?.content?.parts?.map(part => part.text).join("") ||
+          "No response received.";
+        appendMessage("bot", reply);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          appendMessage("bot", "Request failed. Check your network or API key.");
+        }
+      } finally {
+        setBusy(false);
+      }
+    };
+
+    sendBtn.addEventListener("click", () => {
+      const text = userInput.value.trim();
+      if (!text) return;
+      appendMessage("user", text);
+      userInput.value = "";
+      callGemini(text);
+    });
+
+    userInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        sendBtn.click();
+      }
+    });
+
+    clearBtn.addEventListener("click", () => {
+      chatLog.innerHTML = "";
+      userInput.value = "";
+    });
+
+    saveKeyBtn.addEventListener("click", saveKey);
+    loadKey();
+  </script>
+</body>
+</html>

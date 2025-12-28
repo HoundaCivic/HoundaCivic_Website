@@ -90,7 +90,6 @@
 
     let abortController = null;
 
-    const DEFAULT_API_KEY = "AIzaSyB_hO_2_2OYF100NWEc5HShtexpb-AxBUs";
     const STORAGE_KEY = "gemini_api_key";
     const MODEL = "gemini-1.5-flash";
 
@@ -103,10 +102,7 @@
       if (saved) {
         apiKeyInput.value = saved;
         setKeyStatus("Saved");
-        return;
       }
-      apiKeyInput.value = DEFAULT_API_KEY;
-      setKeyStatus("Using embedded key");
     };
 
     const saveKey = () => {
